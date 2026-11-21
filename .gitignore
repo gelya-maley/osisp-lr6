@@ -1,0 +1,7 @@
+build/
+*.obj
+*.exe
+*.log
+report/preview/
+report/listings/
+__pycache__/
