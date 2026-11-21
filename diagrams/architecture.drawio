@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2026-11-22T00:00:00.000Z" agent="lab06g" version="24.0.0">
+  <diagram id="arch" name="architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="args" value="Разбор аргументов&#10;--log --limit --format&#10;--query --log-file" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="40" y="60" width="200" height="70" as="geometry" /></mxCell>
+        <mxCell id="query" value="Открытие журнала&#10;EvtQuery (канал или XPath,&#10;обратный порядок)" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="320" y="60" width="210" height="70" as="geometry" /></mxCell>
+        <mxCell id="next" value="Пакетное чтение&#10;EvtNext по 64 дескриптора,&#10;ERROR_NO_MORE_ITEMS" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="610" y="60" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="render" value="Рендер события&#10;EvtRenderEventXml,&#10;рост буфера по коду ошибки" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="610" y="170" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="parse" value="Разбор XML и сообщение&#10;Provider, EventID, Level,&#10;EvtFormatMessage + publisher" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="320" y="170" width="210" height="70" as="geometry" /></mxCell>
+        <mxCell id="out" value="Формат вывода&#10;text / csv / json,&#10;ограничение --limit" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="320" y="280" width="210" height="70" as="geometry" /></mxCell>
+        <mxCell id="log" value="Журнал утилиты&#10;EVT_QUERY, EVT_BATCH,&#10;EVT_RENDER, EVT_CLOSE" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="40" y="280" width="200" height="70" as="geometry" /></mxCell>
+        <mxCell id="close" value="Освобождение ресурсов&#10;EvtClose на каждый&#10;дескриптор (RAII EvtGuard)" style="rounded=0;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="610" y="280" width="220" height="70" as="geometry" /></mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="args" target="query"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="query" target="next"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="next" target="render"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="render" target="parse"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="parse" target="out"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="out" target="log"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="out" target="close"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

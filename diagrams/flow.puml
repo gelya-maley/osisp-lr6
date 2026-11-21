@@ -1,0 +1,28 @@
+@startuml flow
+title Блок-схема выборки последних N событий журнала Application
+
+start
+:Разбор аргументов
+--log --limit --format --query;
+:EvtQuery: канал Application
+или XPath, обратный порядок;
+if (журнал открыт?) then (нет)
+  :Сообщение об ошибке:
+  доступ, отсутствие канала,
+  некорректный запрос;
+  stop
+else (да)
+endif
+while (выведено < limit AND EvtNext даёт пакет) is (пакет получен)
+  :EvtRenderEventXml с ростом буфера;
+  :Разбор Provider, EventID, Level, Time;
+  :EvtFormatMessage по метаданным издателя
+  или пометка «нет сообщения»;
+  :Вывод записи в text/csv/json;
+  :EvtClose дескриптора события;
+endwhile (нет событий или лимит)
+:EvtClose набора результатов;
+:STATS: события, время, ошибки, уровни;
+stop
+
+@enduml
